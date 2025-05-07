@@ -1,0 +1,145 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard - Food Delivery ERP{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="mb-4">Dashboard</h1>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        {# Admin Dashboard #}
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Restaurants</h5>
+                        <p class="card-text">Manage restaurants and their owners</p>
+                        <a href="#" class="btn btn-primary">Manage Restaurants</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Users</h5>
+                        <p class="card-text">Manage users and their roles</p>
+                        <a href="#" class="btn btn-primary">Manage Users</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Orders</h5>
+                        <p class="card-text">View and manage all orders</p>
+                        <a href="#" class="btn btn-primary">View Orders</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% elseif is_granted('ROLE_RESTAURANT_OWNER') %}
+        {# Restaurant Owner Dashboard #}
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Menu Items</h5>
+                        <p class="card-text">Manage your restaurant's menu</p>
+                        <a href="#" class="btn btn-primary">Manage Menu</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Active Orders</h5>
+                        <p class="card-text">View and manage current orders</p>
+                        <a href="#" class="btn btn-primary">View Orders</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Analytics</h5>
+                        <p class="card-text">View sales and performance metrics</p>
+                        <a href="#" class="btn btn-primary">View Analytics</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% elseif is_granted('ROLE_DELIVERY_DRIVER') %}
+        {# Delivery Driver Dashboard #}
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Active Deliveries</h5>
+                        <p class="card-text">View and manage your current deliveries</p>
+                        <a href="#" class="btn btn-primary">View Deliveries</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Delivery History</h5>
+                        <p class="card-text">View your past deliveries and earnings</p>
+                        <a href="#" class="btn btn-primary">View History</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% else %}
+        {# Customer Dashboard #}
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Place Order</h5>
+                        <p class="card-text">Browse restaurants and place new orders</p>
+                        <a href="#" class="btn btn-primary">Order Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Active Orders</h5>
+                        <p class="card-text">Track your current orders</p>
+                        <a href="#" class="btn btn-primary">Track Orders</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Order History</h5>
+                        <p class="card-text">View your past orders</p>
+                        <a href="#" class="btn btn-primary">View History</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {# Recent Activity Section #}
+    <div class="mt-4">
+        <h2>Recent Activity</h2>
+        <div class="list-group">
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="list-group-item">No recent activity</div>
+            {% elseif is_granted('ROLE_RESTAURANT_OWNER') %}
+                <div class="list-group-item">No recent orders</div>
+            {% elseif is_granted('ROLE_DELIVERY_DRIVER') %}
+                <div class="list-group-item">No active deliveries</div>
+            {% else %}
+                <div class="list-group-item">No recent orders</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
